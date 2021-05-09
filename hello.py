@@ -1,13 +1,15 @@
-from flask import Flask, render_template
-import get_tweets
+from flask import Flask, render_template, request #追加
+import tweet_parser
+
 
 app = Flask(__name__)
 
-@app.route('/hello/<name>')
-def hello(name=None):
-    #return name
-    return render_template('hello.html', title='flask test', name=name) 
-
-## おまじない
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route('/', methods=["GET","POST"]) #Methodを明示する必要あり
+def hello():
+    contents = tweet_parser.get_data()
+    # if request.method == 'POST':
+    #     name = request.form['name']
+    # else:
+    #     name = "no name."
+    print(contents)
+    return render_template('hello.html', contents=contents)

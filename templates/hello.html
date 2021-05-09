@@ -1,5 +1,25 @@
-{% extends "layout.html" %}
-{% block content %}
-<h3>Hello</h3>
-こんにちは。{{ name }}さん。
+{% block page_content %}
+<h1>Sample List</h1>
+<div>
+    <table border="1">
+      <thread>
+        <tr>
+          <th>name</th>
+          <th>num</th>
+        </tr>
+      </thread>
+      <tbody>
+        {% for key, value in contents.items() %}
+        <tr>
+          <td>{{ key }}</td>
+          <td>{{ value }}</td>
+        </tr>
+        {% else %}
+          <td>no entry exist!</td>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 {% endblock %}

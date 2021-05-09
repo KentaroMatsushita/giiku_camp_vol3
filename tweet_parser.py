@@ -21,15 +21,19 @@ def parse(s):
                     break
     return res
 
-connect = MongoClient('localhost', 27017)
-db = connect.mangas
-tweetdata = db.tweet
-meta = db.meta
+def get_data():
+    connect = MongoClient('localhost', 27017)
+    db = connect.mangas
+    tweetdata = db.tweet
+    meta = db.meta
 
-find = tweetdata.find()
+    find = tweetdata.find()
 
+    dict = {}
+    for i in range(find.count()):
+        # print(find[i]['full_text'])
+        for r in parse(find[i]['full_text']):
+            dict[r] = dict.setdefault(r, 0) + 1
+    return dict
 
-
-for i in range(find.count()):
-    # print(find[i]['full_text'])
-    print(parse(find[i]['full_text']))
+# print(get_data())

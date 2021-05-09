@@ -8,10 +8,10 @@ import json, datetime, time, pytz, re, sys,traceback, pymongo, sys, traceback, l
 from pymongo import MongoClient
 from collections import defaultdict
 
-consumer_key =
-consumer_secret = 
-access_token = 
-access_secret =
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_secret = ''
 
 def get_last_id():
     for d in tweetdata.find({},{'id':1, 'created_at':1}).sort([{'id',pymongo.DESCENDING}]).limit(1):
@@ -73,6 +73,7 @@ if __name__ == '__main__':
     num, max_num = 0, 200
     
     date = datetime.date.today()
+    itr = 0
     while num < max_num:
         res = get_tweet(keyword, file, date_to_str(date))
         
@@ -83,6 +84,9 @@ if __name__ == '__main__':
         print(date, len(res['statuses']))
         date = prev_day(date)
         num += len(res['statuses'])
+        itr += 1
+        if itr > 8:
+            break
 
 
     
